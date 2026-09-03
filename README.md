@@ -4,7 +4,7 @@
 
 ### -> [**Download the full AMD dataset on getdata.finance**](https://getdata.finance/datasets/amd)
 
-**AMD 30m OHLCV stocks historical data** — ultra high-quality 30m OHLCV for **Advanced Micro Devices**. Clean `time, open, high, low, close, volume` CSV for backtesting, algorithmic trading and quantitative research.
+**AMD 30m OHLCV stocks historical data** — ultra high-quality 30m OHLCV for **Advanced Micro Devices**. Clean `datetime, open, high, low, close, volume` CSV for backtesting, algorithmic trading and quantitative research.
 
 ## Table of contents
 
@@ -22,12 +22,12 @@
 ## Why this dataset?
 
 - **Ultra high-quality 30m OHLCV** for **Advanced Micro Devices** (US stocks)
-- **Clean CSV schema** — `time, open, high, low, close, volume` (no gaps in formatting)
+- **Clean CSV schema** — `datetime, open, high, low, close, volume` (no gaps in formatting)
 - **Free evaluation sample** on GitHub (`30m`) · **11 timeframes** on [getdata.finance](https://getdata.finance/datasets/amd) · **17,553** `30m` rows in the full archive
 - Built for **backtesting**, **algorithmic trading** and **quantitative finance** workflows
 - **Weekly refresh** — [getdata.finance](https://getdata.finance) every **Saturday, 8am UTC+0**; GitHub `30m` sample updated in sync
 
-> **Sample on GitHub** · `AMD_30m.csv` (1,848 rows, `2026-02-06` -> `2026-09-01`, 182.42 KB). **Full archive on [getdata.finance](https://getdata.finance/datasets/amd)** — **17,553** `30m` rows (full `1m`: 526,381), **11 timeframes**, `2021-04-13` -> `2026-09-01`.
+> **Sample on GitHub** · `AMD_30m.csv` (1,848 rows, `2026-02-06` -> `2026-09-01`, 182.43 KB). **Full archive on [getdata.finance](https://getdata.finance/datasets/amd)** — **17,553** `30m` rows (full `1m`: 526,381), **11 timeframes**, `2021-04-13` -> `2026-09-01`.
 
 ## Download sample
 
@@ -46,7 +46,7 @@ Full archive & live chart on getdata.finance: **[https://getdata.finance/dataset
 | Instrument | Advanced Micro Devices · US stocks | Advanced Micro Devices · US stocks |
 | Timeframes | `30m` (sample) | **11** — 1m · 3m · 5m · 15m · 30m · 1H · 4H · 12H · 1D · 3D · 1W |
 | 30m rows | 1,848 | **17,553** |
-| Size | 182.42 KB | full ZIP on [getdata.finance](https://getdata.finance/datasets/amd) |
+| Size | 182.43 KB | full ZIP on [getdata.finance](https://getdata.finance/datasets/amd) |
 | Period | `2026-02-06` -> `2026-09-01` | `2021-04-13` -> `2026-09-01` |
 | File | `AMD_30m.csv` | ZIP on [getdata.finance](https://getdata.finance/datasets/amd) |
 | Coverage report | — | [AMD coverage](https://getdata.finance/coverage/amd) |
@@ -73,7 +73,7 @@ First and latest rows from the GitHub sample **`AMD_30m.csv`**:
 
 **First rows**
 
-| time | open | high | low | close | volume |
+| datetime | open | high | low | close | volume |
 | --- | --- | --- | --- | --- | --- |
 | 2026-02-06T20:00:00+00:00 | 202.55 | 204.21 | 202.29 | 204.11 | 3281 |
 | 2026-02-06T20:30:00+00:00 | 204.11 | 205.53 | 203.84 | 204.59 | 4968 |
@@ -83,7 +83,7 @@ First and latest rows from the GitHub sample **`AMD_30m.csv`**:
 
 **Last rows**
 
-| time | open | high | low | close | volume |
+| datetime | open | high | low | close | volume |
 | --- | --- | --- | --- | --- | --- |
 | 2026-09-01T17:30:00+00:00 | 456.56 | 457.17 | 454.88 | 455.43 | 1564 |
 | 2026-09-01T18:00:00+00:00 | 455.43 | 456 | 454.22 | 454.73 | 1743 |
@@ -95,7 +95,7 @@ First and latest rows from the GitHub sample **`AMD_30m.csv`**:
 
 | Column | Description |
 | --- | --- |
-| `time` | Bar open timestamp (UTC, ISO-8601). |
+| `datetime` | Bar open timestamp (UTC, ISO-8601). |
 | `open` | Opening price of the candlestick bar. |
 | `high` | Highest price during the bar. |
 | `low` | Lowest price during the bar. |
@@ -103,7 +103,7 @@ First and latest rows from the GitHub sample **`AMD_30m.csv`**:
 | `volume` | Tick volume (number of price updates) during the bar. |
 
 ```text
-time,open,high,low,close,volume
+datetime,open,high,low,close,volume
 ```
 
 ## Code examples
@@ -113,8 +113,8 @@ time,open,high,low,close,volume
 ```python
 import pandas as pd
 
-df = pd.read_csv('AMD_30m.csv', parse_dates=['time'])
-df.set_index('time', inplace=True)
+df = pd.read_csv('AMD_30m.csv', parse_dates=['datetime'])
+df.set_index('datetime', inplace=True)
 print(df.describe())
 ```
 
@@ -124,8 +124,8 @@ print(df.describe())
 import backtrader as bt
 import pandas as pd
 
-df = pd.read_csv('AMD_30m.csv', parse_dates=['time'])
-df.set_index('time', inplace=True)
+df = pd.read_csv('AMD_30m.csv', parse_dates=['datetime'])
+df.set_index('datetime', inplace=True)
 
 class PandasData(bt.feeds.PandasData):
     params = (('datetime', None), ('open', 'open'), ('high', 'high'),
@@ -143,8 +143,8 @@ cerebro.adddata(PandasData(dataname=df))
 import pandas as pd
 import vectorbt as vbt
 
-df = pd.read_csv('AMD_30m.csv', parse_dates=['time'])
-close = df.set_index('time')['close']
+df = pd.read_csv('AMD_30m.csv', parse_dates=['datetime'])
+close = df.set_index('datetime')['close']
 fast, slow = vbt.MA.run(close, 10), vbt.MA.run(close, 50)
 entries = fast.ma_crossed_above(slow)
 exits = fast.ma_crossed_below(slow)
