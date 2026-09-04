@@ -27,7 +27,7 @@
 - Built for **backtesting**, **algorithmic trading** and **quantitative finance** workflows
 - **Weekly refresh** — [getdata.finance](https://getdata.finance) every **Saturday, 8am UTC+0**; GitHub `30m` sample updated in sync
 
-> **Sample on GitHub** · `AMD_30m.csv` (1,848 rows, `2026-02-06` -> `2026-09-01`, 182.43 KB). **Full archive on [getdata.finance](https://getdata.finance/datasets/amd)** — **17,553** `30m` rows (full `1m`: 526,381), **11 timeframes**, `2021-04-13` -> `2026-09-01`.
+> **Sample on GitHub** · `AMD_30m.csv` (1,848 rows, `2026-02-06` -> `2026-09-01`, 182.43 KB). **Full archive on [getdata.finance](https://getdata.finance/datasets/amd)** — **17,553** `30m` rows (full `1m`: 525,821), **11 timeframes**, `2021-04-13` -> `2026-09-01`.
 
 ## Download sample
 
